@@ -16,14 +16,21 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     ball.cpp \
     coreservice.cpp \
-    wall.cpp
+    wall.cpp \
+    action.cpp \
+    mainlayout.cpp \
+    target.cpp
 
 HEADERS  += mainwindow.h \
     ball.h \
     coreservice.h \
-    wall.h
+    wall.h \
+    action.h \
+    mainlayout.h \
+    target.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    mainlayout.ui
 
 RESOURCES += \
     image.qrc

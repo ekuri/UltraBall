@@ -2,6 +2,17 @@
 
 CoreService* CoreService::instance = NULL;
 
+CoreService::~CoreService()
+{
+    delete ballList;
+    delete wallList;
+    delete virtualBallList;
+    if (target)
+        delete target;
+    if (action)
+        delete action;
+}
+
 CoreService *CoreService::getInstance()
 {
     if (instance == NULL)
@@ -23,7 +34,111 @@ CoreService::CoreService()
 {
     ballList = new list<Ball>();
     wallList = new list<Wall>();
+    virtualBallList = new list<Ball>();
+    action = new Action();
+    target = NULL;
+    score = 0;
+    frameCount = 0;
 }
+list<Ball> *CoreService::getVirtualBallList() const
+{
+    return virtualBallList;
+}
+
+void CoreService::setVirtualBallList(list<Ball> *value)
+{
+    virtualBallList = value;
+}
+
+void CoreService::addVirtualBallInTarget()
+{
+    for (int count = 0; count < 15; count++) {
+        Ball b(16);
+        b.setPosx(target->getGeometry().center().x());
+        b.setPosy(target->getGeometry().center().y());
+        virtualBallList->push_back(b);
+    }
+}
+
+int CoreService::getScore() const
+{
+    return score;
+}
+
+void CoreService::setScore(int value)
+{
+    score = value;
+}
+
+void CoreService::scoreAdd(int increase)
+{
+    score += increase;
+}
+
+void CoreService::scoreSub(int decrease)
+{
+    score -= decrease;
+}
+
+Target *CoreService::getTarget() const
+{
+    return target;
+}
+
+void CoreService::setTarget(Target *value)
+{
+    target = value;
+}
+
+void CoreService::removeTarget()
+{
+    delete target;
+    target = NULL;
+}
+
+Action *CoreService::getAction() const
+{
+    return action;
+}
+
+void CoreService::setActionAndDeleteOld(Action *value)
+{
+    if (action != NULL)
+        delete action;
+    action = value;
+}
+
+
+QRect CoreService::getTargetGeometry() const
+{
+    return target?target->getGeometry():QRect(-10, -10, 0, 0);
+}
+
+void CoreService::setTargetGeometry(const QRect &value)
+{
+    target->setGeometry(value);
+}
+
+int CoreService::getWindowWidth() const
+{
+    return windowWidth;
+}
+
+void CoreService::setWindowWidth(int value)
+{
+    windowWidth = value;
+}
+
+int CoreService::getWindowHeight() const
+{
+    return windowHeight;
+}
+
+void CoreService::setWindowHeight(int value)
+{
+    windowHeight = value;
+}
+
 list<Wall> *CoreService::getWallList() const
 {
     return wallList;
@@ -38,7 +153,7 @@ bool CoreService::removeBall(int id)
 {
     for (list<Ball>::iterator it = ballList->begin(); it != ballList->end(); it++) {
         if (it->getId() == id) {
-            ballList->erase(it);
+            it = ballList->erase(it);
             return true;
         }
     }
@@ -49,18 +164,37 @@ bool CoreService::removeWall(int id)
 {
     for (list<Wall>::iterator it = wallList->begin(); it != wallList->end(); it++) {
         if (it->getId() == id) {
-            wallList->erase(it);
+            it = wallList->erase(it);
             return true;
         }
     }
     return false;
 }
 
-bool CoreService::ballsAction(double width, double height, const QRect &geometry)
+void CoreService::resetAllElement()
 {
+    delete instance;
+    instance = new CoreService();
+}
+
+bool CoreService::ballsAction()
+{
+    frameCount++;
+    if (virtualBallList) {
+        int size = virtualBallList->size();
+        if (frameCount % 20 == 0 && size) {
+            size /= 10;
+            do {
+                virtualBallList->pop_front();
+            } while(size--);
+        }
+    }
     bool anyHit = false;
     for (list<Ball>::iterator it = ballList->begin(); it != ballList->end(); it++) {
-        anyHit = anyHit || it->action(width, height, geometry);
+        if (it->action()) {
+            it = ballList->erase(it);
+            anyHit = true;
+        }
     }
     return anyHit;
 }
@@ -73,6 +207,11 @@ void CoreService::checkWallsAge()
             it = wallList->erase(it);
         }
     }
+}
+
+void CoreService::targetAction()
+{
+
 }
 
 list<Ball> *CoreService::getBallList() const

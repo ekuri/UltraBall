@@ -7,8 +7,10 @@ Ball::Ball(double size)
 {
     posx = random() % 600;
     posy = random() % 600;
-    dx = random() % 5 - 2;
-    dy = random() % 5 - 2;
+    do {
+        dx = random() % 5 - 2;
+        dy = random() % 5 - 2;
+    } while(dx == 0 && dy == 0);
     id = idCount++;
     this->size = size;
 }
@@ -16,6 +18,41 @@ Ball::Ball(double size)
 Ball::~Ball()
 {
 
+}
+
+bool Ball::action() {
+    moveNext();
+    if (bounce())
+        CoreService::getInstance()->getAction()->onCrashWall(this);
+    bounceToLines();
+    return hitTarget();
+}
+
+bool Ball::bounce() {
+    CoreService *core = CoreService::getInstance();
+    int height = core->getWindowHeight();
+    int width = core->getWindowWidth();
+    if (posx < 0) {
+        dx = -dx;
+        posx = 0;
+        return true;
+    }
+    if (posx + size > width) {
+        dx = -dx;
+        posx = width - size;
+        return true;
+    }
+    if (posy < 0) {
+        dy = -dy;
+        posy = 0;
+        return true;
+    }
+    if (posy + size > height) {
+        dy = -dy;
+        posy = height - size;
+        return true;
+    }
+    return false;
 }
 
 bool Ball::testCrash(QPointF startPoint, QPointF endPoint) {
@@ -79,16 +116,20 @@ void Ball::bounceToLines()
     list<Wall> *wallList = core->getWallList();
     for (list<Wall>::iterator it = wallList->begin(); it != wallList->end(); it++) {
         if (testCrash((*it).getStartPoint(), (*it).getEndPoint())) {
-            bounceToLine((*it).getStartPoint(), (*it).getEndPoint());
+            //bounceToLine((*it).getStartPoint(), (*it).getEndPoint());
+            CoreService::getInstance()->getAction()->onBounceToLine((*it).getStartPoint(), (*it).getEndPoint(), this);
             return;
         }
     }
 }
 
-bool Ball::hitTarget(QRect target)
+bool Ball::hitTarget()
 {
-    if (QRect(posx, posy, size, size).intersects(target))
+    QRect target = CoreService::getInstance()->getTargetGeometry();
+    if (QRect(posx, posy, size, size).intersects(target)) {
+        CoreService::getInstance()->getAction()->onHitTarget(this);
         return true;
+    }
     return false;
 }
 int Ball::getId() const
@@ -100,5 +141,45 @@ void Ball::setId(int value)
 {
     id = value;
 }
+double Ball::getDx() const
+{
+    return dx;
+}
+
+void Ball::setDx(double value)
+{
+    dx = value;
+}
+double Ball::getDy() const
+{
+    return dy;
+}
+
+void Ball::setDy(double value)
+{
+    dy = value;
+}
+double Ball::getPosy() const
+{
+    return posy;
+}
+
+void Ball::setPosy(double value)
+{
+    posy = value;
+}
+
+double Ball::getPosx() const
+{
+    return posx;
+}
+
+void Ball::setPosx(double value)
+{
+    posx = value;
+}
+
+
+
 
 

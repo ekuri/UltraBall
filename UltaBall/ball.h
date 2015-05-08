@@ -14,40 +14,13 @@ public:
     Ball(double size);
     ~Ball();
 
-    inline bool action(double height,double width, QRect target) {
-        moveNext();
-        bounce(height, width);
-        bounceToLines();
-        return hitTarget(target);
-    }
+    bool action();
 
     inline void moveNext() {
         posx += dx;
         posy += dy;
     }
-    inline bool bounce(double height,double width) {
-        if (posx < 0) {
-            dx = -dx;
-            posx = 0;
-            return true;
-        }
-        if (posx + size > height) {
-            dx = -dx;
-            posx = height - size;
-            return true;
-        }
-        if (posy < 0) {
-            dy = -dy;
-            posy = 0;
-            return true;
-        }
-        if (posy + size > width) {
-            dy = -dy;
-            posy = width - size;
-            return true;
-        }
-        return false;
-    }
+    bool bounce();
 
     inline QPointF getPos() {
         return QPointF(posx, posy);
@@ -59,10 +32,22 @@ public:
     bool testCrash(QPointF startPoint, QPointF endPoint);
     bool bounceToLine(QPointF startPoint, QPointF endPoint);
     void bounceToLines();
-    bool hitTarget(QRect target);
+    bool hitTarget();
 
     int getId() const;
     void setId(int value);
+
+    double getDx() const;
+    void setDx(double value);
+
+    double getDy() const;
+    void setDy(double value);
+
+    double getPosx() const;
+    void setPosx(double value);
+
+    double getPosy() const;
+    void setPosy(double value);
 
 private:
     double posx, posy;
