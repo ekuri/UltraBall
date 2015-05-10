@@ -37,9 +37,31 @@ CoreService::CoreService()
     virtualBallList = new list<Ball>();
     action = new Action();
     target = NULL;
-    score = 0;
+    score = 10;
     frameCount = 0;
+    limitX = 0;
+    limitY = 0;
 }
+int CoreService::getLimitY() const
+{
+    return limitY;
+}
+
+void CoreService::setLimitY(int value)
+{
+    limitY = value;
+}
+
+int CoreService::getLimitX() const
+{
+    return limitX;
+}
+
+void CoreService::setLimitX(int value)
+{
+    limitX = value;
+}
+
 list<Ball> *CoreService::getVirtualBallList() const
 {
     return virtualBallList;
@@ -171,10 +193,12 @@ bool CoreService::removeWall(int id)
     return false;
 }
 
-void CoreService::resetAllElement()
+void CoreService::resetAllElementExpectScore()
 {
+    int tempScore = score;
     delete instance;
     instance = new CoreService();
+    setScore(tempScore);
 }
 
 bool CoreService::ballsAction()
@@ -189,10 +213,16 @@ bool CoreService::ballsAction()
             } while(size--);
         }
     }
+    for (list<Ball>::iterator it = virtualBallList->begin(); it != virtualBallList->end(); it++) {
+        it->moveNext();
+        it->bounce();
+    }
     bool anyHit = false;
     for (list<Ball>::iterator it = ballList->begin(); it != ballList->end(); it++) {
         if (it->action()) {
             it = ballList->erase(it);
+            if (it == ballList->begin() || it == ballList->end())
+                CoreService::getInstance()->scoreAdd(10);
             anyHit = true;
         }
     }

@@ -29,7 +29,7 @@ public:
 
     bool removeBall(int id);
     bool removeWall(int id);
-    void resetAllElement();
+    void resetAllElementExpectScore();
 
     bool ballsAction();
     void checkWallsAge();
@@ -60,6 +60,12 @@ public:
     void setVirtualBallList(list<Ball> *value);
     void addVirtualBallInTarget();
 
+    int getLimitX() const;
+    void setLimitX(int value);
+
+    int getLimitY() const;
+    void setLimitY(int value);
+
 private:
     CoreService();
     static CoreService *instance;
@@ -68,6 +74,8 @@ private:
     list<Ball> *virtualBallList;
     int windowHeight;
     int windowWidth;
+    int limitX;
+    int limitY;
     Target *target;
     Action *action;
     int score;

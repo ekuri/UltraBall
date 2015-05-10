@@ -32,9 +32,11 @@ bool Ball::bounce() {
     CoreService *core = CoreService::getInstance();
     int height = core->getWindowHeight();
     int width = core->getWindowWidth();
-    if (posx < 0) {
+    int limitX = core->getLimitX();
+    int limitY = core->getLimitY();
+    if (posx < limitX) {
         dx = -dx;
-        posx = 0;
+        posx = limitX;
         return true;
     }
     if (posx + size > width) {
@@ -42,9 +44,9 @@ bool Ball::bounce() {
         posx = width - size;
         return true;
     }
-    if (posy < 0) {
+    if (posy < limitY) {
         dy = -dy;
-        posy = 0;
+        posy = limitY;
         return true;
     }
     if (posy + size > height) {

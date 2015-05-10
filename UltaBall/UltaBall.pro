@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     wall.cpp \
     action.cpp \
     mainlayout.cpp \
-    target.cpp
+    target.cpp \
+    game2layout.cpp \
+    game3layout.cpp
 
 HEADERS  += mainwindow.h \
     ball.h \
@@ -27,10 +29,14 @@ HEADERS  += mainwindow.h \
     wall.h \
     action.h \
     mainlayout.h \
-    target.h
+    target.h \
+    game2layout.h \
+    game3layout.h
 
 FORMS    += mainwindow.ui \
-    mainlayout.ui
+    mainlayout.ui \
+    game2layout.ui \
+    game3layout.ui
 
 RESOURCES += \
     image.qrc

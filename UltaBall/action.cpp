@@ -8,11 +8,12 @@ Action::Action()
 bool Action::onCrashWall(Ball *b)
 {
     CoreService::getInstance()->scoreSub(1);
+    return true;
 }
 
 bool Action::onBounceToLine(const QPointF &startPoint, const QPointF &endPoint, Ball *b)
 {
-    CoreService::getInstance()->scoreSub(1);
+    //CoreService::getInstance()->scoreSub(1);
 
     const double posx = b->getPos().x();
     const double posy = b->getPos().y();
@@ -58,8 +59,9 @@ bool Action::onBounceToLine(const QPointF &startPoint, const QPointF &endPoint, 
 
 bool Action::onHitTarget(Ball *b)
 {
-     CoreService::getInstance()->scoreAdd(10);
+     CoreService::getInstance()->scoreAdd(2);
      CoreService::getInstance()->addVirtualBallInTarget();
+     return true;
 }
 
 Action::~Action()

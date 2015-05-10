@@ -1,19 +1,19 @@
-#include "mainlayout.h"
-#include "ui_mainlayout.h"
-#include <QMessageBox>
+#include "game2layout.h"
+#include "ui_game2layout.h"
 #include "coreservice.h"
 #include <QPen>
-#include "target.h"
-#include "mainwindow.h"
+#include <QPainter>
 
-MainLayout::MainLayout(QWidget *parent) :
+Game2Layout::Game2Layout(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::MainLayout)
+    ui(new Ui::Game2Layout)
 {
     ui->setupUi(this);
+
     started = false;
     level = 1;
     image.load(":/image/image.png");
+    greenBall.load(":/image/green.png");
     orangeBall.load(":/image/orange.png");
 
     timer.setInterval(10);
@@ -22,23 +22,21 @@ MainLayout::MainLayout(QWidget *parent) :
     timer.start();
 }
 
-MainLayout::~MainLayout()
+Game2Layout::~Game2Layout()
 {
     delete ui;
 }
 
-void MainLayout::start()
+void Game2Layout::start()
 {
     CoreService::getInstance()->resetAllElementExpectScore();
     for (int count = 0; count < level * level; count++) {
         CoreService::getInstance()->addBall(48);
     }
-    for (int count = 0; count < level ; count++) {
-        CoreService::getInstance()->setTarget(new Target(64));
-    }
+    CoreService::getInstance()->setTarget(new Target(64));
 }
 
-void MainLayout::paintEvent(QPaintEvent *event)
+void Game2Layout::paintEvent(QPaintEvent *event)
 {
     Target *target =  CoreService::getInstance()->getTarget();
     if (started) {
@@ -57,24 +55,41 @@ void MainLayout::paintEvent(QPaintEvent *event)
 
     list<Ball> *ballList = CoreService::getInstance()->getBallList();
     QPen pen;
-    pen.setWidth(5);
-    pen.setColor(Qt::lightGray);
 
     QPainter p(this);
-    p.setPen(pen);
-    if (mouseClicked)
-        p.drawLine(startPoint, endPoint);
 
     // paint target
     if (target)
         p.drawPixmap(target->getGeometry().topLeft(), orangeBall.scaled(target->getGeometry().size()));
 
     // paint balls
+    pen.setWidth(2);
+    pen.setColor(Qt::green);
+    p.setPen(pen);
     for (list<Ball>::iterator it = ballList->begin(); it != ballList->end(); it++) {
-        p.drawPixmap(it->getPos().x(), it->getPos().y(), it->getSize(), it->getSize(), image.scaled(QSize(it->getSize(), it->getSize())));
+        QRectF temp(it->getPosx(), it->getPosy(), it->getSize(), it->getSize());
+        list<Ball>::iterator tempIt = it;
+        tempIt++;
+
+        if (it == ballList->begin() || tempIt == ballList->end()) {
+            p.drawPixmap(temp.toRect(), greenBall.scaled(QSize(it->getSize(), it->getSize())));
+        } else {
+            p.drawPixmap(temp.toRect(), image.scaled(QSize(it->getSize(), it->getSize())));
+        }
+        if (tempIt != ballList->end()) {
+
+            QRectF next(tempIt->getPosx(), tempIt->getPosy(), tempIt->getSize(), tempIt->getSize());
+
+            p.drawLine(temp.center(), next.center());
+        }
     }
 
     // paint walls
+    pen.setWidth(5);
+    pen.setColor(Qt::lightGray);
+    p.setPen(pen);
+    if (mouseClicked)
+        p.drawLine(startPoint, endPoint);
     list<Wall> *wallList = CoreService::getInstance()->getWallList();
     for (list<Wall>::iterator it = wallList->begin(); it != wallList->end(); it++) {
         p.drawLine(it->getStartPoint(), it->getEndPoint());
@@ -89,7 +104,7 @@ void MainLayout::paintEvent(QPaintEvent *event)
     event->accept();
 }
 
-void MainLayout::mousePressEvent(QMouseEvent *event)
+void Game2Layout::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
         startPoint = event->pos();
@@ -99,7 +114,7 @@ void MainLayout::mousePressEvent(QMouseEvent *event)
     event->accept();
 }
 
-void MainLayout::mouseReleaseEvent(QMouseEvent *event)
+void Game2Layout::mouseReleaseEvent(QMouseEvent *event)
 {
     list<Ball> *ballList = CoreService::getInstance()->getBallList();
     for (list<Ball>::iterator it = ballList->begin(); it != ballList->end(); it++) {
@@ -113,7 +128,7 @@ void MainLayout::mouseReleaseEvent(QMouseEvent *event)
     event->accept();
 }
 
-void MainLayout::mouseMoveEvent(QMouseEvent *event)
+void Game2Layout::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->buttons() & Qt::LeftButton) {
         endPoint = event->pos();
@@ -121,19 +136,19 @@ void MainLayout::mouseMoveEvent(QMouseEvent *event)
     event->accept();
 }
 
-void MainLayout::resizeEvent(QResizeEvent *event)
+void Game2Layout::resizeEvent(QResizeEvent *event)
 {
     CoreService::getInstance()->setWindowHeight(this->height());
     CoreService::getInstance()->setWindowWidth(this->width());
     event->accept();
 }
 
-void MainLayout::checkWalls()
+void Game2Layout::checkWalls()
 {
     CoreService::getInstance()->checkWallsAge();
 }
 
-void MainLayout::on_startBtn_clicked(bool checked)
+void Game2Layout::on_startBtn_clicked(bool checked)
 {
     if (checked) {
         started = true;

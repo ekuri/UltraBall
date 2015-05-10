@@ -1,26 +1,21 @@
-#ifndef MAINLAYOUT_H
-#define MAINLAYOUT_H
+#ifndef GAME3LAYOUT_H
+#define GAME3LAYOUT_H
 
 #include <QWidget>
-#include <QPixmap>
-#include <QPainter>
 #include <QTimer>
 #include <QPaintEvent>
-#include <QTime>
-#include <QDebug>
-#include "ball.h"
 
 namespace Ui {
-class MainLayout;
+class Game3Layout;
 }
 
-class MainLayout : public QWidget
+class Game3Layout : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit MainLayout(QWidget *parent = 0);
-    ~MainLayout();
+    explicit Game3Layout(QWidget *parent = 0);
+    ~Game3Layout();
     void start();
 
 protected:
@@ -36,13 +31,13 @@ private slots:
     void on_startBtn_clicked(bool checked);
 
 private:
-    Ui::MainLayout *ui;
-    QPixmap image, orangeBall;
+    QPixmap image, greenBall, orangeBall;
     QTimer timer;
-    QPoint startPoint, endPoint;
+    QPoint startPoint, endPoint, mirrorStartPoint, mirrorEndPoint;
     bool mouseClicked;
     bool started;
     int level;
+    Ui::Game3Layout *ui;
 };
 
-#endif // MAINLAYOUT_H
+#endif // GAME3LAYOUT_H
