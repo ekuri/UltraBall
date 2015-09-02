@@ -56,8 +56,11 @@ void GameLayout::mouseReleaseEvent(QMouseEvent *event)
         if (!isMousePress) {
             return;
         }
-        CoreService::getInstance()->addWall(ItemType::commonWall, mousePressPosition, event->pos());
         isMousePress = false;
+        if (mousePressPosition == event->pos()) {
+            return;
+        }
+        CoreService::getInstance()->addWall(ItemType::commonWall, mousePressPosition, event->pos());
     }
 
     event->accept();
@@ -78,6 +81,7 @@ void GameLayout::mouseMoveEvent(QMouseEvent *event)
 void GameLayout::paintItem()
 {
     QPainter painter(this);
+    painter.setRenderHint(QPainter::HighQualityAntialiasing);
     QBrush brush;
     brush.setColor(Qt::blue);
     brush.setStyle(Qt::SolidPattern);
@@ -85,13 +89,14 @@ void GameLayout::paintItem()
 
     QPen pen;
     pen.setColor(Qt::blue);
-    pen.setWidth(5);
+    pen.setWidth(3);
     painter.setPen(pen);
 
-    PaintService paintService(&painter);
-    paintService.paint();
     if (isMousePress) {
         painter.drawLine(mousePressPosition, currentCursorPosition);
     }
+
+    PaintService paintService(&painter);
+    paintService.paint();
 
 }

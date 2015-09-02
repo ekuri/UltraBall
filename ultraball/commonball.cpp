@@ -1,4 +1,7 @@
 #include "commonball.h"
+#include "coreservice.h"
+#include "commonwall.h"
+
 #include <QDebug>
 
 CommonBall::CommonBall(const QPointF &initialPosition, const QPointF &initialVelocity, qreal initialRadius)
@@ -9,12 +12,22 @@ CommonBall::CommonBall(const QPointF &initialPosition, const QPointF &initialVel
 
 list<Item *> CommonBall::getProcessItem()
 {
-    return list<Item*>();
+    list<Item *> resultList;
+
+    foreach (AbstractWall *w, CoreService::getInstance()->getWallList()) {
+        resultList.push_back(w);
+    }
+    return resultList;
 }
 
 void CommonBall::processItem(list<Item *> targetItems)
 {
-
+    foreach (Item *i, targetItems) {
+        if (i->getItemType() == ItemType::commonWall) {
+            CommonWall *w = static_cast<CommonWall *> (i);
+            if ()
+        }
+    }
 }
 
 void CommonBall::moveNext()
