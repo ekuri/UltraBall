@@ -19,8 +19,6 @@ void CommonBall::processItem(list<Item *> targetItems)
 
 void CommonBall::moveNext()
 {
-    qDebug() << "position: " << position << " velocity: " << velocity
-             << "window height: " << windowHeight << " window width: " << windowWidth;
     position.rx() += velocity.x();
     position.ry() += velocity.y();
     if (position.x() - radius < 0) {
@@ -39,7 +37,5 @@ void CommonBall::moveNext()
         position.ry() = windowHeight - radius;
         velocity.ry() = -velocity.y();
     }
-
-    qDebug() << "position: " << position << " velocity: " << velocity << "\n";
 }
 

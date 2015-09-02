@@ -13,42 +13,19 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    ball.cpp \
-    coreservice.cpp \
-    wall.cpp \
-    action.cpp \
-    mainlayout.cpp \
-    target.cpp \
-    game2layout.cpp \
-    game3layout.cpp \
     abstractball.cpp \
     physicalitem.cpp \
     item.cpp \
     commonball.cpp \
     gamelayout.cpp
 
-HEADERS  += mainwindow.h \
-    ball.h \
-    coreservice.h \
-    wall.h \
-    action.h \
-    mainlayout.h \
-    target.h \
-    game2layout.h \
-    game3layout.h \
-    abstractball.h \
+HEADERS  += abstractball.h \
     physicalitem.h \
     itemtype.h \
     item.h \
     commonball.h \
     gamelayout.h
 
-FORMS    += mainwindow.ui \
-    mainlayout.ui \
-    game2layout.ui \
-    game3layout.ui \
+FORMS    += \
     gamelayout.ui
 
-RESOURCES += \
-    image.qrc

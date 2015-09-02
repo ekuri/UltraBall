@@ -18,6 +18,7 @@ public:
     explicit GameLayout(QWidget *parent = 0);
     ~GameLayout();
     void paintEvent(QPaintEvent *event);
+    void paintItem();
 
 private:
     Ui::GameLayout *ui;

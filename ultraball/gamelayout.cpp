@@ -20,6 +20,12 @@ GameLayout::~GameLayout()
 
 void GameLayout::paintEvent(QPaintEvent *event)
 {
+    paintItem();
+    event->accept();
+}
+
+void GameLayout::paintItem()
+{
     Item::setWindowHeight(this->size().height());
     Item::setWindowWidth(this->size().width());
     b.act();
@@ -29,5 +35,4 @@ void GameLayout::paintEvent(QPaintEvent *event)
     brush.setStyle(Qt::SolidPattern);
     p.setBrush(brush);
     p.drawEllipse(b.getPosition(), b.getRadius(), b.getRadius());
-    event->accept();
 }
