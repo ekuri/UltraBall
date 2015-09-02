@@ -13,6 +13,8 @@ GameLayout::GameLayout(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    isMousePress = false;
+
     timer.setInterval(10);
     connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
     timer.start();
@@ -28,7 +30,7 @@ void GameLayout::paintEvent(QPaintEvent *event)
     Item::setWindowHeight(this->size().height());
     Item::setWindowWidth(this->size().width());
     static int count = 0;
-    if (count++ % 10 == 0) {
+    if (count++ % 1000 == 0) {
         CoreService::getInstance()->addItemRandomly(ItemType::commonBall);
     }
     CoreService::getInstance()->act();
@@ -36,14 +38,60 @@ void GameLayout::paintEvent(QPaintEvent *event)
     event->accept();
 }
 
+void GameLayout::mousePressEvent(QMouseEvent *event)
+{
+
+    if (event->button() == Qt::LeftButton) {
+        isMousePress = true;
+        mousePressPosition = event->pos();
+        currentCursorPosition = event->pos();
+    }
+
+    event->accept();
+}
+
+void GameLayout::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        if (!isMousePress) {
+            return;
+        }
+        CoreService::getInstance()->addWall(ItemType::commonWall, mousePressPosition, event->pos());
+        isMousePress = false;
+    }
+
+    event->accept();
+}
+
+void GameLayout::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton) {
+        if (!isMousePress) {
+            return;
+        }
+        currentCursorPosition = event->pos();
+    }
+
+    event->accept();
+}
+
 void GameLayout::paintItem()
 {
-    QPainter p(this);
+    QPainter painter(this);
     QBrush brush;
     brush.setColor(Qt::blue);
     brush.setStyle(Qt::SolidPattern);
-    p.setBrush(brush);
+    painter.setBrush(brush);
 
-    PaintService ps(&p);
-    ps.paint();
+    QPen pen;
+    pen.setColor(Qt::blue);
+    pen.setWidth(5);
+    painter.setPen(pen);
+
+    PaintService paintService(&painter);
+    paintService.paint();
+    if (isMousePress) {
+        painter.drawLine(mousePressPosition, currentCursorPosition);
+    }
+
 }

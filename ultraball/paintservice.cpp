@@ -13,4 +13,7 @@ void PaintService::paint()
         painter->drawEllipse(b->getPosition(), b->getRadius(), b->getRadius());
     }
 
+    foreach (AbstractWall *w, coreServiceInstance->getWallList()) {
+        painter->drawLine(w->getStartPosition(), w->getEndPosition());
+    }
 }

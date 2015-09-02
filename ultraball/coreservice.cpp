@@ -3,6 +3,7 @@
 #include <time.h>
 
 #include "commonball.h"
+#include "commonwall.h"
 
 CoreService* CoreService::instance = NULL;
 
@@ -45,8 +46,12 @@ bool CoreService::addItemRandomly(ItemType::type type)
     return false;
 }
 
-bool CoreService::addItem(ItemType::type type)
+bool CoreService::addWall(ItemType::type type, const QPointF &initialStartPosition, const QPointF &initialEndPosition)
 {
+    if (type == ItemType::commonWall) {
+        wallList.push_back(new CommonWall(initialStartPosition, initialEndPosition));
+        return true;
+    }
 
     return false;
 }

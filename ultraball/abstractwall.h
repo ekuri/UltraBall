@@ -12,6 +12,10 @@ public:
     virtual void changeStatus() = 0;
     void act();
 
+    QPointF getStartPosition() const;
+
+    QPointF getEndPosition() const;
+
 private:
     QPointF startPosition;
     QPointF endPosition;

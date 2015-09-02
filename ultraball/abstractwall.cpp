@@ -13,3 +13,11 @@ void AbstractWall::act()
     changeStatus();
 }
 
+QPointF AbstractWall::getStartPosition() const
+{
+    return startPosition;
+}
+QPointF AbstractWall::getEndPosition() const
+{
+    return endPosition;
+}

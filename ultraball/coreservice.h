@@ -11,7 +11,7 @@ public:
 
     void act();
     bool addItemRandomly(ItemType::type type);
-    bool addItem(ItemType::type type);
+    bool addWall(ItemType::type type, const QPointF &initialStartPosition, const QPointF &initialEndPosition);
 
     static int getWindowHeight();
     static void setWindowHeight(int value);
