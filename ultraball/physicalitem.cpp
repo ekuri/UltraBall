@@ -2,6 +2,6 @@
 
 PhysicalItem::PhysicalItem()
 {
-
+    itemType = ItemType::physicalItem;
 }
 

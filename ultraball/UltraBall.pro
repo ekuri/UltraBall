@@ -21,7 +21,12 @@ SOURCES += main.cpp\
     mainlayout.cpp \
     target.cpp \
     game2layout.cpp \
-    game3layout.cpp
+    game3layout.cpp \
+    abstractball.cpp \
+    physicalitem.cpp \
+    item.cpp \
+    commonball.cpp \
+    gamelayout.cpp
 
 HEADERS  += mainwindow.h \
     ball.h \
@@ -31,12 +36,19 @@ HEADERS  += mainwindow.h \
     mainlayout.h \
     target.h \
     game2layout.h \
-    game3layout.h
+    game3layout.h \
+    abstractball.h \
+    physicalitem.h \
+    itemtype.h \
+    item.h \
+    commonball.h \
+    gamelayout.h
 
 FORMS    += mainwindow.ui \
     mainlayout.ui \
     game2layout.ui \
-    game3layout.ui
+    game3layout.ui \
+    gamelayout.ui
 
 RESOURCES += \
     image.qrc

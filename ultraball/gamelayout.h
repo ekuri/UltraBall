@@ -1,7 +1,10 @@
 #ifndef GAMELAYOUT_H
 #define GAMELAYOUT_H
 
+#include <QPaintEvent>
+#include <QTimer>
 #include <QWidget>
+#include "commonball.h"
 
 namespace Ui {
 class GameLayout;
@@ -14,9 +17,12 @@ class GameLayout : public QWidget
 public:
     explicit GameLayout(QWidget *parent = 0);
     ~GameLayout();
+    void paintEvent(QPaintEvent *event);
 
 private:
     Ui::GameLayout *ui;
+    QTimer timer;
+    CommonBall b;
 };
 
 #endif // GAMELAYOUT_H
