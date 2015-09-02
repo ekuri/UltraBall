@@ -17,14 +17,22 @@ SOURCES += main.cpp\
     physicalitem.cpp \
     item.cpp \
     commonball.cpp \
-    gamelayout.cpp
+    gamelayout.cpp \
+    coreservice.cpp \
+    paintservice.cpp \
+    abstractwall.cpp \
+    commonwall.cpp
 
 HEADERS  += abstractball.h \
     physicalitem.h \
     itemtype.h \
     item.h \
     commonball.h \
-    gamelayout.h
+    gamelayout.h \
+    coreservice.h \
+    paintservice.h \
+    abstractwall.h \
+    commonwall.h
 
 FORMS    += \
     gamelayout.ui

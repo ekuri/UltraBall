@@ -4,7 +4,7 @@
 CommonBall::CommonBall(const QPointF &initialPosition, const QPointF &initialVelocity, qreal initialRadius)
     : AbstractBall(initialPosition, initialVelocity, initialRadius)
 {
-
+    itemType = ItemType::commonBall;
 }
 
 list<Item *> CommonBall::getProcessItem()

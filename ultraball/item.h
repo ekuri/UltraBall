@@ -7,11 +7,12 @@ class Item
 {
 public:
     Item();
-
     ItemType::type getItemType() const;
 
+    static int getWindowHeight();
     static void setWindowHeight(int value);
 
+    static int getWindowWidth();
     static void setWindowWidth(int value);
 
 protected:

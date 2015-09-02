@@ -8,7 +8,9 @@ public:
         animationItem,
         physicalItem,
         abstractBall,
-        ball,
+        commonBall,
+        abstractWall,
+        commonWall,
     };
 };
 

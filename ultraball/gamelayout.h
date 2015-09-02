@@ -4,7 +4,6 @@
 #include <QPaintEvent>
 #include <QTimer>
 #include <QWidget>
-#include "commonball.h"
 
 namespace Ui {
 class GameLayout;
@@ -23,7 +22,6 @@ public:
 private:
     Ui::GameLayout *ui;
     QTimer timer;
-    CommonBall b;
 };
 
 #endif // GAMELAYOUT_H
