@@ -3,6 +3,7 @@
 
 #include <QPointF>
 #include <math.h>
+#include "item.h"
 
 class UltraBallHelper
 {
@@ -37,6 +38,10 @@ public:
         resultVelocity *= resultPrecision;
 
         return resultVelocity;
+    }
+
+    inline static bool isOutOfBound(QPointF position) {
+        return (position.x() < 0) || (position.x() > Item::getWindowWidth()) || (position.y() < 0) || (position.y() > Item::getWindowHeight());
     }
 
 private:

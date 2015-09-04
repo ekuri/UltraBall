@@ -3,6 +3,7 @@
 
 #include "abstractball.h"
 #include "abstractwall.h"
+#include "abstractanimationitem.h"
 
 class CoreService
 {
@@ -21,12 +22,14 @@ public:
 
     list<AbstractBall *> &getBallList();
     list<AbstractWall *> &getWallList();
+    list<AbstractAnimationItem *> &getAnimationItems();
 
 private:
     CoreService();
     static CoreService *instance;
     list<AbstractBall *> ballList;
     list<AbstractWall *> wallList;
+    list<AbstractAnimationItem *> animationItems;
 };
 
 #endif // CORESERVICE_H

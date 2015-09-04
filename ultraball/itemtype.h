@@ -11,6 +11,9 @@ public:
         commonBall,
         abstractWall,
         commonWall,
+        abstractAnimationItem,
+        commonBallAnimationItem,
+        targetAnimationItem,
     };
 };
 

@@ -19,11 +19,12 @@ SOURCES += main.cpp\
     commonball.cpp \
     gamelayout.cpp \
     coreservice.cpp \
-    paintservice.cpp \
     abstractwall.cpp \
     commonwall.cpp \
-    ultraballhelper.cpp \
-    debugwindow.cpp
+    debugwindow.cpp \
+    commonballanimationitem.cpp \
+    abstractanimationitem.cpp \
+    targetanimationitem.cpp
 
 HEADERS  += abstractball.h \
     physicalitem.h \
@@ -36,7 +37,10 @@ HEADERS  += abstractball.h \
     abstractwall.h \
     commonwall.h \
     ultraballhelper.h \
-    debugwindow.h
+    debugwindow.h \
+    commonballanimationitem.h \
+    abstractanimationitem.h \
+    targetanimationitem.h
 
 FORMS    += \
     gamelayout.ui \
