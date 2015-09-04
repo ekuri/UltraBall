@@ -15,7 +15,7 @@ GameLayout::GameLayout(QWidget *parent) :
 
     isMousePress = false;
 
-    timer.setInterval(10);
+    timer.setInterval(100 / 6);
     connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
     timer.start();
 }
@@ -30,7 +30,7 @@ void GameLayout::paintEvent(QPaintEvent *event)
     Item::setWindowHeight(this->size().height());
     Item::setWindowWidth(this->size().width());
     static int count = 0;
-    if (count++ % 1000 == 0) {
+    if (count++ % 20 == 0) {
         CoreService::getInstance()->addItemRandomly(ItemType::commonBall);
     }
     CoreService::getInstance()->act();

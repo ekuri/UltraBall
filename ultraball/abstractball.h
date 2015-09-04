@@ -21,7 +21,6 @@ public:
 
 protected:
     QPointF position;
-    QPointF previousPosition;
     QPointF velocity;
     qreal radius;
 };

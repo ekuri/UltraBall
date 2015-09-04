@@ -55,7 +55,6 @@ void CommonBall::processItem(list<Item *> targetItems)
 
 void CommonBall::moveNext()
 {
-    previousPosition = position;
     position.rx() += velocity.x();
     position.ry() += velocity.y();
     if (position.x() - radius < 0) {
@@ -78,12 +77,8 @@ void CommonBall::moveNext()
 
 void CommonBall::crashToWallThenBounce(const AbstractWall *targetWall, const QPointF &crashPoint)
 {
-
     // 获得速度变化的方向向量
     QPointF directionChangeVector = position - crashPoint;
     velocity = UltraBallHelper::getVelocityChangeByDirection(velocity, directionChangeVector);
-
-    // 返回碰撞前位置
-    //position = previousPosition;
 }
 
