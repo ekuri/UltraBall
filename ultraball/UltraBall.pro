@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     coreservice.cpp \
     paintservice.cpp \
     abstractwall.cpp \
-    commonwall.cpp
+    commonwall.cpp \
+    ultraballhelper.cpp
 
 HEADERS  += abstractball.h \
     physicalitem.h \
@@ -32,7 +33,8 @@ HEADERS  += abstractball.h \
     coreservice.h \
     paintservice.h \
     abstractwall.h \
-    commonwall.h
+    commonwall.h \
+    ultraballhelper.h
 
 FORMS    += \
     gamelayout.ui

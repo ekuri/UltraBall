@@ -25,7 +25,3 @@ QPointF AbstractBall::getVelocity() const
 {
     return velocity;
 }
-
-
-
-
