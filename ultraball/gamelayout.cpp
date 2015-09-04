@@ -29,10 +29,6 @@ void GameLayout::paintEvent(QPaintEvent *event)
 {
     Item::setWindowHeight(this->size().height());
     Item::setWindowWidth(this->size().width());
-    static int count = 0;
-    if (count++ % 20 == 0) {
-        CoreService::getInstance()->addItemRandomly(ItemType::commonBall);
-    }
     CoreService::getInstance()->act();
     paintItem();
     event->accept();
@@ -81,14 +77,9 @@ void GameLayout::mouseMoveEvent(QMouseEvent *event)
 void GameLayout::paintItem()
 {
     QPainter painter(this);
-    painter.setRenderHint(QPainter::HighQualityAntialiasing);
-    QBrush brush;
-    brush.setColor(Qt::blue);
-    brush.setStyle(Qt::SolidPattern);
-    painter.setBrush(brush);
 
-    QPen pen;
-    pen.setColor(Qt::blue);
+    QPen pen = painter.pen();
+    pen.setColor(Qt::red);
     pen.setWidth(3);
     painter.setPen(pen);
 
@@ -96,7 +87,5 @@ void GameLayout::paintItem()
         painter.drawLine(mousePressPosition, currentCursorPosition);
     }
 
-    PaintService paintService(&painter);
-    paintService.paint();
-
+    PaintService::paint(&painter);
 }

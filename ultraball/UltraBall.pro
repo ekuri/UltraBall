@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     paintservice.cpp \
     abstractwall.cpp \
     commonwall.cpp \
-    ultraballhelper.cpp
+    ultraballhelper.cpp \
+    debugwindow.cpp
 
 HEADERS  += abstractball.h \
     physicalitem.h \
@@ -34,8 +35,10 @@ HEADERS  += abstractball.h \
     paintservice.h \
     abstractwall.h \
     commonwall.h \
-    ultraballhelper.h
+    ultraballhelper.h \
+    debugwindow.h
 
 FORMS    += \
-    gamelayout.ui
+    gamelayout.ui \
+    debugwindow.ui
 

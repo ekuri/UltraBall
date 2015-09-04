@@ -39,7 +39,7 @@ bool CoreService::addItemRandomly(ItemType::type type)
     if (type == ItemType::commonBall) {
         ballList.push_back(new CommonBall(
                                QPointF(rand() % Item::getWindowWidth(), rand() % Item::getWindowHeight()),
-                               QPointF(rand() % 5, rand() % 5), rand() % 10 + 20));
+                               QPointF(rand() % 5, rand() % 5), rand() % 5 + 10));
         return true;
     }
 
