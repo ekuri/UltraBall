@@ -16,7 +16,8 @@ GameLayout::GameLayout(QWidget *parent) :
     isMousePress = false;
 
     timer.setInterval(100 / 6);
-    connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
+    //connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
+    connect(&timer, SIGNAL(timeout()), this, SLOT(act()));
     timer.start();
 }
 
@@ -27,9 +28,6 @@ GameLayout::~GameLayout()
 
 void GameLayout::paintEvent(QPaintEvent *event)
 {
-    Item::setWindowHeight(this->size().height());
-    Item::setWindowWidth(this->size().width());
-    CoreService::getInstance()->act();
     paintItem();
     event->accept();
 }
@@ -88,4 +86,11 @@ void GameLayout::paintItem()
     }
 
     PaintService::paint(&painter);
+}
+
+void GameLayout::act()
+{
+    Item::setWindowHeight(this->size().height());
+    Item::setWindowWidth(this->size().width());
+    CoreService::getInstance()->act();
 }

@@ -2,6 +2,7 @@
 #include "coreservice.h"
 #include "commonwall.h"
 #include "ultraballhelper.h"
+#include "commonballanimationitem.h"
 
 #include <QDebug>
 
@@ -9,6 +10,7 @@ CommonBall::CommonBall(const QPointF &initialPosition, const QPointF &initialVel
     : AbstractBall(initialPosition, initialVelocity, initialRadius)
 {
     itemType = ItemType::commonBall;
+    actCount = 0;
 }
 
 list<Item *> CommonBall::getProcessItem()
@@ -47,7 +49,7 @@ void CommonBall::processItem(list<Item *> targetItems)
             }
 
             if (isCrashToWall) {
-                this->crashToWallThenBounce(w, (leffPosition + rightPosition) / 2);
+                this->crashToWallThenBounce((leffPosition + rightPosition) / 2);
             }
         }
     }
@@ -75,10 +77,15 @@ void CommonBall::moveNext()
     }
 }
 
-void CommonBall::crashToWallThenBounce(const AbstractWall *targetWall, const QPointF &crashPoint)
+void CommonBall::crashToWallThenBounce(const QPointF &crashPoint)
 {
     // 获得速度变化的方向向量
     QPointF directionChangeVector = position - crashPoint;
     velocity = UltraBallHelper::getVelocityChangeByDirection(velocity, directionChangeVector);
+}
+
+void CommonBall::handleAnimation()
+{
+    //CoreService::getInstance()->getAnimationItems().push_back(new CommonBallAnimationItem(this));
 }
 

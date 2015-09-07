@@ -33,9 +33,12 @@ public:
             painter->drawEllipse(b->getPosition(), b->getRadius(), b->getRadius());
         }
 
+        pen.setWidth(2);
+        pen.setColor(Qt::darkGreen);
+        painter->setPen(pen);
         foreach (AbstractAnimationItem *animation, coreServiceInstance->getAnimationItems()) {
             if (animation->getItemType() == ItemType::commonBallAnimationItem) {
-                painter->drawEllipse(animation->getPosition(), animation->getTarget()->getRadius() * 0.2, animation->getTarget()->getRadius() * 0.2);
+                painter->drawPoint(animation->getPosition());
             }
         }
 

@@ -21,3 +21,8 @@ void CommonWall::changeStatus()
 
 }
 
+void CommonWall::handleAnimation()
+{
+
+}
+

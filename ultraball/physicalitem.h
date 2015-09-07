@@ -14,6 +14,7 @@ public:
     virtual list<Item*> getProcessItem() = 0;
     virtual void processItem(list<Item*> targetItems) = 0;
     virtual void act() = 0;
+    virtual void handleAnimation() = 0;
 };
 
 #endif // PHYSICALITEM_H

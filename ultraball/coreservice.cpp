@@ -48,11 +48,8 @@ bool CoreService::addItemRandomly(ItemType::type type)
 {
     if (type == ItemType::commonBall) {
         ballList.push_back(new CommonBall(
-                               QPointF(rand() % Item::getWindowWidth(), rand() % Item::getWindowHeight()),
-                               QPointF(rand() % 5, rand() % 5), rand() % 5 + 10));
-        for (int count = 0; count < 8; count++) {
-            animationItems.push_back(new CommonBallAnimationItem(ballList.back()));
-        }
+                               QPointF(drand48() * Item::getWindowWidth(), drand48() * Item::getWindowHeight()),
+                               QPointF(drand48() * 5, drand48() * 5), drand48() * 5 + 10));
         return true;
     }
 
@@ -67,6 +64,12 @@ bool CoreService::addWall(ItemType::type type, const QPointF &initialStartPositi
     }
 
     return false;
+}
+
+void CoreService::removeAndDeleteAnimationItem(AbstractAnimationItem *item)
+{
+    animationItems.remove(item);
+    delete item;
 }
 
 

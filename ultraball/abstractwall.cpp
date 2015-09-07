@@ -11,6 +11,7 @@ void AbstractWall::act()
 {
     processItem(getProcessItem());
     changeStatus();
+    handleAnimation();
 }
 
 QPointF AbstractWall::getStartPosition() const

@@ -10,6 +10,7 @@ public:
     list<Item*> getProcessItem();
     void processItem(list<Item*> targetItems);
     void changeStatus();
+    void handleAnimation();
 };
 
 #endif // COMMONWALL_H

@@ -13,12 +13,7 @@ public:
     void act();
     bool addItemRandomly(ItemType::type type);
     bool addWall(ItemType::type type, const QPointF &initialStartPosition, const QPointF &initialEndPosition);
-
-    static int getWindowHeight();
-    static void setWindowHeight(int value);
-
-    static int getWindowWidth();
-    static void setWindowWidth(int value);
+    void removeAndDeleteAnimationItem(AbstractAnimationItem *item);
 
     list<AbstractBall *> &getBallList();
     list<AbstractWall *> &getWallList();

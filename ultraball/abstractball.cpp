@@ -12,6 +12,7 @@ void AbstractBall::act()
 {
     processItem(getProcessItem());
     moveNext();
+    handleAnimation();
 }
 qreal AbstractBall::getRadius() const
 {

@@ -13,8 +13,11 @@ public:
     list<Item*> getProcessItem();
     void processItem(list<Item*> targetItems);
     void moveNext();
-    void crashToWallThenBounce(const AbstractWall *targetWall, const QPointF &crashPoint);
+    void crashToWallThenBounce(const QPointF &crashPoint);
+    void handleAnimation();
 
+protected:
+    int actCount;
 };
 
 #endif // COMMONBALL_H

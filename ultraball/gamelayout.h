@@ -30,6 +30,9 @@ private:
     QPointF currentCursorPosition;
 
     void paintItem();
+
+private Q_SLOTS:
+    void act();
 };
 
 #endif // GAMELAYOUT_H

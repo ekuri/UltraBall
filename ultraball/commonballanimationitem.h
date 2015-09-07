@@ -6,7 +6,8 @@
 class CommonBallAnimationItem : public AbstractAnimationItem
 {
 public:
-    CommonBallAnimationItem(AbstractBall *initialTarget);
+    explicit CommonBallAnimationItem(AbstractBall *initialTarget);
+    virtual ~CommonBallAnimationItem() {}
     void act();
 
 protected:

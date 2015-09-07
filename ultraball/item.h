@@ -7,6 +7,7 @@ class Item
 {
 public:
     Item();
+    virtual ~Item() {}
     ItemType::type getItemType() const;
 
     static int getWindowHeight();

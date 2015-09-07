@@ -7,7 +7,8 @@
 class AbstractAnimationItem : public Item
 {
 public:
-    AbstractAnimationItem(AbstractBall *initialTarget);
+    explicit AbstractAnimationItem(AbstractBall *initialTarget);
+    virtual ~AbstractAnimationItem() {}
     virtual void act() = 0;
 
     QPointF getPosition() const;

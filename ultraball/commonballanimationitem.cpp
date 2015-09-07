@@ -6,16 +6,15 @@
 
 CommonBallAnimationItem::CommonBallAnimationItem(AbstractBall *initialTarget) :
    AbstractAnimationItem (initialTarget),
-   moveDirection(-initialTarget->getVelocity() + QPointF(rand() % 3 - 1, rand() % 3 - 1))
+   moveDirection(drand48() * 2 - 1.0, drand48() * 2 - 1.0)
 {
     itemType = ItemType::commonBallAnimationItem;
 }
 
 void CommonBallAnimationItem::act()
 {
+    position += moveDirection;
     if (UltraBallHelper::isOutOfBound(position)) {
-       CoreService::getInstance()->getAnimationItems().remove(this);
-       delete this;
+       CoreService::getInstance()->removeAndDeleteAnimationItem(this);
     }
 }
-
