@@ -6,6 +6,7 @@
 #include "commonball.h"
 #include "commonwall.h"
 #include "commonballanimationitem.h"
+#include "gravityball.h"
 
 CoreService* CoreService::instance = NULL;
 
@@ -48,6 +49,12 @@ bool CoreService::addItemRandomly(ItemType::type type)
 {
     if (type == ItemType::commonBall) {
         ballList.push_back(new CommonBall(
+                               QPointF(drand48() * Item::getWindowWidth(), drand48() * Item::getWindowHeight()),
+                               QPointF(drand48() * 5, drand48() * 5), drand48() * 5 + 10));
+        return true;
+    }
+    if (type == ItemType::gravityBall) {
+        ballList.push_back(new GravityBall(
                                QPointF(drand48() * Item::getWindowWidth(), drand48() * Item::getWindowHeight()),
                                QPointF(drand48() * 5, drand48() * 5), drand48() * 5 + 10));
         return true;

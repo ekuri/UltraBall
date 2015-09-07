@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     debugwindow.cpp \
     commonballanimationitem.cpp \
     abstractanimationitem.cpp \
-    targetanimationitem.cpp
+    targetanimationitem.cpp \
+    gravityball.cpp
 
 HEADERS  += abstractball.h \
     physicalitem.h \
@@ -40,7 +41,8 @@ HEADERS  += abstractball.h \
     debugwindow.h \
     commonballanimationitem.h \
     abstractanimationitem.h \
-    targetanimationitem.h
+    targetanimationitem.h \
+    gravityball.h
 
 FORMS    += \
     gamelayout.ui \

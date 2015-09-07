@@ -16,7 +16,7 @@ GameLayout::GameLayout(QWidget *parent) :
     isMousePress = false;
 
     timer.setInterval(100 / 6);
-    //connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
+    connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
     connect(&timer, SIGNAL(timeout()), this, SLOT(act()));
     timer.start();
 }

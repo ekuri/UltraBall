@@ -14,6 +14,7 @@ public:
         abstractAnimationItem,
         commonBallAnimationItem,
         targetAnimationItem,
+        gravityBall,
     };
 };
 

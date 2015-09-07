@@ -16,9 +16,15 @@ DebugWindow::~DebugWindow()
 
 void DebugWindow::on_pushButton_clicked()
 {
-    for (int count = 0; count < 100; count++) {
+    for (int count = 0; count < 1; count++) {
         CoreService::getInstance()->addItemRandomly(ItemType::commonBall);
     }
 
+    ui->lcdNumber->display((int) CoreService::getInstance()->getBallList().size());
+}
+
+void DebugWindow::on_pushButton_2_clicked()
+{
+    CoreService::getInstance()->addItemRandomly(ItemType::gravityBall);
     ui->lcdNumber->display((int) CoreService::getInstance()->getBallList().size());
 }
